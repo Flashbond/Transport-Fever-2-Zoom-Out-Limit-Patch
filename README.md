@@ -1,0 +1,50 @@
+# Transport Fever 2 – Zoom Out Limit Patch #
+By default, the game's zoom-out limit is restricted to level 8. This patch raises the limit to level 10, making it much easier to get a clear overview of very large maps, including Megalomaniac-sized maps.
+
+## What does it do? ##
+- Increases the maximum zoom-out level from 8 to 10.
+- Makes large-scale map management and navigation considerably easier.
+- Particularly useful on Megalomaniac-sized maps, where the default zoom limit can make it difficult to get a useful overview.
+
+The patch modifies the game's executable directly. A .bak backup is created before the patched executable is written.
+
+## Usage ##
+### Option 1 - Run the PowerShell script ###
+1. Place Transport-Fever-2-Zoom-Out-Limit-Patch.ps1 in your Transport Fever 2 game folder.
+1. Right-click the .ps1 file and run it with PowerShell.
+
+### Option - Run it from Terminal ###
+1. Place Transport-Fever-2-Zoom-Out-Limit-Patch.ps1 in your Transport Fever 2 game folder.
+1. Right-click an empty area inside the game folder.
+1. Select Open in Terminal.
+1. Open the .ps1 file with a text editor and copy its contents.
+1. Paste the code into the terminal.
+1. Press Enter.
+
+The script automatically locates TransportFever2.exe in the current folder and performs the required checks before modifying it.
+
+## Backup & Safety ##
+The script creates *TransportFever2.exe.bak* before modifying the original executable.
+
+If the patch cannot be written successfully, it attempts to restore the executable from the backup.
+
+**Close Transport Fever 2 before running the patch.**
+
+## Note ##
+It is strongly recommended to increase the *viewNearFar* far value in *base_config.lua* file which is located in game's *res/config/* folder. Otherwise, the fog may block the visible area. These values work fine for me:
+
+
+
+
+	geometryQualityOptions = {
+		{ viewNearFar = { 4.0, 7500.0 }, fogStartEndFarPerc = { .45, 1.0 }, lodDistanceScaling = .5 },		-- Low
+		{ viewNearFar = { 4.0, 15000.0 }, fogStartEndFarPerc = { .33, 1.0 }, lodDistanceScaling = .75 },	-- Medium
+		{ viewNearFar = { 4.0, 16000.0 }, fogStartEndFarPerc = { .25, 1.0 }, lodDistanceScaling = 1.0 },	-- High
+		{ viewNearFar = { 4.0, 15000.0 }, fogStartEndFarPerc = { .125, 1.0 }, lodDistanceScaling = 10 },	-- Camera tool
+		{ viewNearFar = { 0.5, 5000.0 }, fogStartEndFarPerc = { 1.0, 1.0 }, lodDistanceScaling = 1.0 },		-- Cockpit view
+	}
+
+
+
+## Disclaimer ##
+This is an unofficial community patch and is not affiliated with or endorsed by Urban Games or the publishers of Transport Fever 2.
