@@ -26,7 +26,6 @@ The script automatically locates TransportFever2.exe in the current folder and p
 ## Note ##
 It is strongly recommended to increase the *viewNearFar* far value in *base_config.lua* file which is located in game's *res/config/* folder. Otherwise, the fog may block the visible area. These values work fine for me:
 
-
 	geometryQualityOptions = {
 		{ viewNearFar = { 4.0, 7500.0 }, fogStartEndFarPerc = { .45, 1.0 }, lodDistanceScaling = .5 },		-- Low
 		{ viewNearFar = { 4.0, 15000.0 }, fogStartEndFarPerc = { .33, 1.0 }, lodDistanceScaling = .75 },	-- Medium
