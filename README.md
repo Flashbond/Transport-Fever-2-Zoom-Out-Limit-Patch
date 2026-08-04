@@ -16,7 +16,7 @@ The patch modifies the game's executable directly. A .bak backup is created befo
 1. In the **General** tab, check **Unblock** at the bottom of the window, then click **Apply** and close.
 1. Right-click the *.ps1* file and select **Run with PowerShell**.
 
-### Option - Run it from Terminal ###
+### Option 2 - Run it from Terminal ###
 1. Copy the contents of *Transport-Fever-2-Zoom-Out-Limit-Patch.ps1* file.
 1. Run Windows **Terminal**.
 1. Paste the code into the terminal.
