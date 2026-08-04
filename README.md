@@ -20,7 +20,7 @@ The patch modifies the game's executable directly. A .bak backup is created befo
 1. Paste the code into the terminal.
 1. Press Enter.
 
-The script automatically locates TransportFever2.exe in the current folder and performs the required checks before modifying it.
+The script automatically locates TransportFever2.exe and performs the required checks before modifying it.
 
 ## Note ##
 It is strongly recommended to increase the *viewNearFar* far value in *base_config.lua* file which is located in game's *res/config/* folder. Otherwise, the fog may block the visible area. These values work fine for me:
