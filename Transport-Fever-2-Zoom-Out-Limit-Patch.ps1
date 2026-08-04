@@ -4,74 +4,106 @@
 & {
 	# 0. Locate Transport Fever 2
 
-	$Exe = $null
-	$Candidates = @()
-	$SteamPaths = @()
-	
-	$regPaths = @(
-	    "HKLM:\SOFTWARE\WOW6432Node\Valve\Steam",
-	    "HKLM:\SOFTWARE\Valve\Steam"
+	$SteamReg = @(
+		"HKLM:\SOFTWARE\Valve\Steam",
+		"HKLM:\SOFTWARE\WOW6432Node\Valve\Steam",
+		"HKCU:\SOFTWARE\Valve\Steam"
 	)
-	
-	foreach ($reg in $regPaths) {
-	    $p = (Get-ItemProperty -Path $reg -ErrorAction SilentlyContinue).SteamPath
-	
-	    if ($p) {
-	        $SteamPaths += $p
-	    }
+
+	$SteamPaths = @()
+
+	foreach ($reg in $SteamReg) {
+		$p = (Get-ItemProperty -Path $reg -ErrorAction SilentlyContinue).InstallPath
+
+		if ($p -and (Test-Path $p)) {
+			$SteamPaths += $p
+		}
 	}
-	
-	$SteamPaths = $SteamPaths | Select-Object -Unique
-	
-	foreach ($steam in $SteamPaths) {
-	
-	    $vdf = Join-Path $steam "steamapps\libraryfolders.vdf"
-	
-	    if (!(Test-Path $vdf)) {
-	        continue
-	    }
-	
-	    try {
-	        $content = Get-Content $vdf -Raw -ErrorAction Stop
-	    }
-	    catch {
-	        continue
-	    }
-	
-	    $libraries = [regex]::Matches(
-	        $content,
-	        '"path"\s+"([^"]+)"'
-	    ) | ForEach-Object {
-	        $_.Groups[1].Value -replace '\\\\','\'
-	    }
-	
-	    foreach ($library in $libraries) {
-	
-	        $candidate = Join-Path `
-	            $library `
-	            "steamapps\common\Transport Fever 2\TransportFever2.exe"
-	
-	        if (Test-Path $candidate) {
-	            $Candidates += $candidate
-	        }
-	    }
+
+	$SteamPaths = @($SteamPaths | Select-Object -Unique)
+
+	if ($SteamPaths.Count -eq 0) {
+		Write-Host "[ERROR] Steam installation path not found." -ForegroundColor Red
+		return
 	}
-	
-	$Candidates = $Candidates | Select-Object -Unique
-	
+
+	Write-Host "[OK] Steam installation found." -ForegroundColor Green
+
+	$Candidates = @()
+
+	foreach ($SteamPath in $SteamPaths) {
+
+		$Vdf = Join-Path $SteamPath "steamapps\libraryfolders.vdf"
+
+		if (!(Test-Path $Vdf)) {
+			continue
+		}
+
+		$VdfText = Get-Content $Vdf -Raw
+
+		if (!$VdfText) {
+			continue
+		}
+
+		$Blocks = [regex]::Matches(
+			$VdfText,
+			'(?ms)"(\d+)"\s*\{(.*?)\n\s*\}'
+		)
+
+		foreach ($Block in $Blocks) {
+
+			$Content = $Block.Groups[2].Value
+
+			if ($Content -notmatch '"1066780"') {
+				continue
+			}
+
+			$PathMatch = [regex]::Match(
+				$Content,
+				'"path"\s+"([^"]+)"'
+			)
+
+			if (!$PathMatch.Success) {
+				continue
+			}
+
+			$Library = $PathMatch.Groups[1].Value -replace '\\\\','\'
+
+			$Candidate = Join-Path `
+				$Library `
+				"steamapps\common\Transport Fever 2\TransportFever2.exe"
+
+			if (Test-Path $Candidate) {
+				$Candidates += $Candidate
+			}
+		}
+	}
+
+	$Candidates = @($Candidates | Select-Object -Unique)
+
 	if ($Candidates.Count -eq 0) {
-	    Write-Host "[ERROR] TransportFever2.exe could not be located." -ForegroundColor Red
-	    return
+		Write-Host "[ERROR] TransportFever2.exe not found." -ForegroundColor Red
+		return
 	}
-	
+
 	if ($Candidates.Count -gt 1) {
-	    Write-Host "[ERROR] Multiple TransportFever2.exe installations found." -ForegroundColor Red
-	    return
+		Write-Host "[ERROR] Multiple TransportFever2.exe installations found." -ForegroundColor Red
+		return
 	}
-	
+
 	$Exe = $Candidates[0]
-	
-	Write-Host "[OK] EXE found." -ForegroundColor Green
+
+	Write-Host "[OK] TransportFever2.exe found." -ForegroundColor Green
+
+	try {
+		$data = [System.IO.File]::ReadAllBytes($Exe)
+	}
+	catch {
+		Write-Host "[ERROR] Could not read TransportFever2.exe." -ForegroundColor Red
+		return
+	}
+
+	Write-Host "[OK] EXE read." -ForegroundColor Green
 
 	# PE parsing
 
