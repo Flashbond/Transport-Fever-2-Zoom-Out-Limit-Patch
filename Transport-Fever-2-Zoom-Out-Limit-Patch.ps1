@@ -2,24 +2,76 @@
 # Transport Fever 2 - Zoom Limit Patcher 
 # ------------------------------------------------------------
 & {
-	$Exe = Join-Path (Get-Location) "TransportFever2.exe"
+	# 0. Locate Transport Fever 2
 
-	# 0. PE constraints
-
-	if (!(Test-Path $Exe)) {
-		Write-Host "[ERROR] TransportFever2.exe not found." -ForegroundColor Red
-		return
+	$Exe = $null
+	$Candidates = @()
+	$SteamPaths = @()
+	
+	$regPaths = @(
+	    "HKLM:\SOFTWARE\WOW6432Node\Valve\Steam",
+	    "HKLM:\SOFTWARE\Valve\Steam"
+	)
+	
+	foreach ($reg in $regPaths) {
+	    $p = (Get-ItemProperty -Path $reg -ErrorAction SilentlyContinue).SteamPath
+	
+	    if ($p) {
+	        $SteamPaths += $p
+	    }
 	}
+	
+	$SteamPaths = $SteamPaths | Select-Object -Unique
+	
+	foreach ($steam in $SteamPaths) {
+	
+	    $vdf = Join-Path $steam "steamapps\libraryfolders.vdf"
+	
+	    if (!(Test-Path $vdf)) {
+	        continue
+	    }
+	
+	    try {
+	        $content = Get-Content $vdf -Raw -ErrorAction Stop
+	    }
+	    catch {
+	        continue
+	    }
+	
+	    $libraries = [regex]::Matches(
+	        $content,
+	        '"path"\s+"([^"]+)"'
+	    ) | ForEach-Object {
+	        $_.Groups[1].Value -replace '\\\\','\'
+	    }
+	
+	    foreach ($library in $libraries) {
+	
+	        $candidate = Join-Path `
+	            $library `
+	            "steamapps\common\Transport Fever 2\TransportFever2.exe"
+	
+	        if (Test-Path $candidate) {
+	            $Candidates += $candidate
+	        }
+	    }
+	}
+	
+	$Candidates = $Candidates | Select-Object -Unique
+	
+	if ($Candidates.Count -eq 0) {
+	    Write-Host "[ERROR] TransportFever2.exe could not be located." -ForegroundColor Red
+	    return
+	}
+	
+	if ($Candidates.Count -gt 1) {
+	    Write-Host "[ERROR] Multiple TransportFever2.exe installations found." -ForegroundColor Red
+	    return
+	}
+	
+	$Exe = $Candidates[0]
+	
 	Write-Host "[OK] EXE found." -ForegroundColor Green
-
-	try {
-		$data = [System.IO.File]::ReadAllBytes($Exe)
-	}
-	catch {
-		Write-Host "[ERROR] Could not read EXE." -ForegroundColor Red
-		return
-	}
-	Write-Host "[OK] EXE read." -ForegroundColor Green
 
 	# PE parsing
 
