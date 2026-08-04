@@ -1,4 +1,4 @@
-# Transport Fever 2 – Zoom Out Limit Patch #
+# Transport Fever 2 - Zoom Out Limit Patch #
 By default, the game's zoom-out limit is restricted to level 8. This patch raises the limit to level 10, making it much easier to get a clear overview of very large maps, including Megalomaniac-sized maps.
 
 ## What does it do? ##
