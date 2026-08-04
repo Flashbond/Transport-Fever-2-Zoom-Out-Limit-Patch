@@ -9,6 +9,7 @@ By default, the game's zoom-out limit is restricted to level 8. This patch raise
 The patch modifies the game's executable directly. A .bak backup is created before the patched executable is written.
 
 ## Usage ##
+**Close Transport Fever 2 before running the patch.**
 ### Option 1 - Run the PowerShell script ###
 1. Place Transport-Fever-2-Zoom-Out-Limit-Patch.ps1 in your Transport Fever 2 game folder.
 1. Right-click the .ps1 file and run it with PowerShell.
@@ -38,8 +39,6 @@ It is strongly recommended to increase the *viewNearFar* far value in *base_conf
 The script creates *TransportFever2.exe.bak* before modifying the original executable.
 
 If the patch cannot be written successfully, it attempts to restore the executable from the backup.
-
-**Close Transport Fever 2 before running the patch.**
 
 ## Disclaimer ##
 This is an unofficial community patch and is not affiliated with or endorsed by Urban Games or the publishers of Transport Fever 2.
