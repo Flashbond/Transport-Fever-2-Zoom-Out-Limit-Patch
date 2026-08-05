@@ -4,7 +4,7 @@ By default, the game's zoom-out limit is restricted to level 8. This patch incre
 ## What does it do? ##
 The patch modifies the game's executable directly. A *.bak* backup is created before the patched executable is written.
 
-## Usage ##
+## How to use ##
 **Close Transport Fever 2 before running the patch.**
 ### Option 1 - Run the PowerShell script ###
 1. Download the *Transport-Fever-2-Zoom-Out-Limit-Patch.ps1* file.
