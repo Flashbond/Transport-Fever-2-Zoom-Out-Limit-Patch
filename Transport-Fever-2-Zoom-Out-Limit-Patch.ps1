@@ -1,5 +1,5 @@
 # ------------------------------------------------------------
-# Transport Fever 2 - Zoom Limit Patcher 
+# Transport Fever 2 - Zoom Out Limit Patcher 
 # ------------------------------------------------------------
 & {
 	# 0. Locate Transport Fever 2
