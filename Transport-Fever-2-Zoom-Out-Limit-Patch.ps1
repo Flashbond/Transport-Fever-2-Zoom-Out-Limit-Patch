@@ -211,7 +211,7 @@
 	# 8. Backup
 	$Backup = "$Exe.bak"
 	if (Test-Path $Backup) {
-		Write-Host "[Warning] Backup already exists." -ForegroundColor Yellow
+		Write-Host "[Skipped] Backup already exists." -ForegroundColor Yellow
 	}
 	if (!(Test-Path $Backup)) {
 		try {
