@@ -2,10 +2,6 @@
 By default, the game's zoom-out limit is restricted to level 8. This patch raises the limit to level 10, making it much easier to get a clear overview of very large maps, including Megalomaniac-sized maps.
 
 ## What does it do? ##
-- Increases the maximum zoom-out level from 8 to 10.
-- Makes large-scale map management and navigation considerably easier.
-- Particularly useful on Megalomaniac-sized maps, where the default zoom limit can make it difficult to get a useful overview.
-
 The patch modifies the game's executable directly. A *.bak* backup is created before the patched executable is written.
 
 ## Usage ##
