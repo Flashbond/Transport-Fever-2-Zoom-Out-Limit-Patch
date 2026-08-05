@@ -6,7 +6,7 @@ By default, the game's zoom-out limit is restricted to level 8. This patch raise
 - Makes large-scale map management and navigation considerably easier.
 - Particularly useful on Megalomaniac-sized maps, where the default zoom limit can make it difficult to get a useful overview.
 
-The patch modifies the game's executable directly. A .bak backup is created before the patched executable is written.
+The patch modifies the game's executable directly. A *.bak* backup is created before the patched executable is written.
 
 ## Usage ##
 **Close Transport Fever 2 before running the patch.**
