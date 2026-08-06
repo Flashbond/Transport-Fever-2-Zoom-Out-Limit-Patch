@@ -2,7 +2,7 @@
 # Transport Fever 2 - Zoom Out Limit Patcher 
 # ------------------------------------------------------------
 & {
-	# 0. Locate Transport Fever 2
+	# 1. Locate Transport Fever 2
 	$SteamReg = @(
 		"HKLM:\SOFTWARE\Valve\Steam",
 		"HKLM:\SOFTWARE\WOW6432Node\Valve\Steam",
@@ -81,7 +81,7 @@
 		return
 	}
 	Write-Host "[OK] EXE read." -ForegroundColor Green
-	# PE parsing
+	# 2. PE parsing
 	$pe = [BitConverter]::ToInt32($data, 0x3C)
 	if ($data[$pe] -ne 0x50 -or
 		$data[$pe+1] -ne 0x45 -or
@@ -121,7 +121,7 @@
 	Write-Host "[OK] PE parsed." -ForegroundColor Green
 	$text = [BitConverter]::ToString($data, $textStart, $textSize)
 	$rdata = [BitConverter]::ToString($data, $rdataStart, $rdataSize)
-	# 4. Find camera instruction
+	# 3. Find camera instruction
 	$cameraPattern =
 	'F3-0F-10-0D-(?:[0-9A-F]{2}-){4}F3-0F-5D-CA-F3-0F-11-8F-C0-00-00-00'
 	$m = [regex]::Match($text, $cameraPattern)
@@ -131,7 +131,7 @@
 	}
 	$camera = $textStart + [int]($m.Index / 3)
 	Write-Host "[OK] Camera instruction found." -ForegroundColor Green
-	# 5.1 Calculate current .rdata target
+	# 4. Calculate current .rdata target
 	$dispOffset = 4
 	$instructionSize = 8
 	$disp = [BitConverter]::ToInt32(
@@ -151,7 +151,7 @@
 		Write-Host "[Exiting] Already patched." -ForegroundColor Yellow
 		return
 	}
-	# 5.2 + 6. Find and validate zoom constant candidate
+	# 5. Find zoom constant candidate
 	$VanillaZoom = 8.0
 	$PatchZoom   = 10.0
 	$MaxDistance = 0x10000
@@ -172,6 +172,7 @@
 		Write-Host "[ERROR] Zoom constant not found." -ForegroundColor Red
 		return
 	}
+	# 6. Validate zoom constant
 	$best = $null
 	$bestDistance = [Int64]::MaxValue
 	foreach ($m in $matches) {
