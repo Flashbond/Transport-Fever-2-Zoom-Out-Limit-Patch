@@ -250,4 +250,4 @@
 		return
 	}
 	Write-Host "[SUCCESS] TransportFever2.exe patched." -ForegroundColor Green
-}; Read-Host "Hit Enter to continue..."
+}; Read-Host "Press Enter to continue..."
