@@ -4,6 +4,8 @@ By default, the game's zoom-out limit is restricted to level 8. This patch incre
 ## What does it do ##
 The patch modifies the game's executable directly. A *.bak* backup is created before the patched executable is written.
 
+The script automatically locates TransportFever2.exe and performs the required checks before modifying it.
+
 ## How to use ##
 **Close Transport Fever 2 before running the patch.**
 ### Option 1 - Run the PowerShell script ###
@@ -17,8 +19,6 @@ The patch modifies the game's executable directly. A *.bak* backup is created be
 1. Run Windows **Terminal**.
 1. Paste the code into the terminal.
 1. Press **Enter**.
-
-The script automatically locates TransportFever2.exe and performs the required checks before modifying it.
 
 ## Note ##
 It is strongly recommended to increase the *viewNearFar* far values in *base_config.lua* file which is located in game's *res/config/* folder. Otherwise, the fog may block the visible area.
