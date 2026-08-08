@@ -22,7 +22,6 @@
 	}
 	Write-Host "[OK] Steam installation found." -ForegroundColor Green
 	$Candidates = @()
-	$LibraryFound = $false
 	foreach ($SteamPath in $SteamPaths) {
 		$Vdf = Join-Path $SteamPath "steamapps\libraryfolders.vdf"
 		if (!(Test-Path $Vdf)) {
@@ -32,7 +31,6 @@
 		if (!$VdfText) {
 			continue
 		}
-		$LibraryFound = $true
 		$Blocks = [regex]::Matches(
 			$VdfText,
 			'(?ms)"(\d+)"\s*\{(.*?)\n\s*\}'
@@ -59,10 +57,6 @@
 		}
 	}
 	$Candidates = @($Candidates | Select-Object -Unique)
-	if (!$LibraryFound) {
-        Write-Host "[ERROR] Steam library not found." -ForegroundColor Red
-        return
-    }
 	if ($Candidates.Count -eq 0) {
 		Write-Host "[ERROR] TransportFever2.exe not found." -ForegroundColor Red
 		return
