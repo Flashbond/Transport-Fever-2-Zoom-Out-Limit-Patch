@@ -15,8 +15,8 @@ The script automatically locates TransportFever2.exe and performs the required c
 1. Right-click the *.ps1* file and select **Run with PowerShell**.
 
 ### Option 2 - Run it from Terminal ###
-1. Copy the contents of *Transport-Fever-2-Zoom-Out-Limit-Patch.ps1* file.
 1. Run Windows **Terminal**.
+1. Copy the contents of *Transport-Fever-2-Zoom-Out-Limit-Patch.ps1* file.
 1. Paste the code into the terminal.
 1. Press **Enter**.
 
