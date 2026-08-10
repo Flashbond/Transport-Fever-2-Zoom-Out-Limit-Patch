@@ -31,10 +31,9 @@ It is strongly recommended to increase the *viewNearFar* far values in *base_con
 		{ viewNearFar = { 0.5, 5000.0 }, fogStartEndFarPerc = { 1.0, 1.0 }, lodDistanceScaling = 1.0 },		-- Cockpit view
 	}
 
-## Backup & Safety ##
-The script creates *TransportFever2.exe.bak* before modifying the original executable.
-
-If the patch cannot be written successfully, it attempts to restore the executable from the backup.
+## Backup & Restore ##
+The patch has no built-in restore function.
+The script creates *TransportFever2.exe.bak* before modifying the original executable. Use the backup file to revert changes.
 
 ## Disclaimer ##
 This is an unofficial community patch and is not affiliated with or endorsed by Urban Games or the publishers of Transport Fever 2.
