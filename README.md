@@ -32,7 +32,7 @@ It is strongly recommended to increase the *viewNearFar* far values in *base_con
 	}
 
 ## Backup & Restore ##
-The patch has no built-in restore function.
+The patch has **no** built-in restore function.
 The script creates *TransportFever2.exe.bak* before modifying the original executable. Use the backup file to revert changes.
 
 ## Disclaimer ##
