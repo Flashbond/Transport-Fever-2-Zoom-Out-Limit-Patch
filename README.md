@@ -36,5 +36,5 @@ The patch has **no** built-in restore function.
 The script creates *TransportFever2.exe.bak* before modifying the original executable. Use the backup file to revert changes.
 
 ## Disclaimer ##
-This is an unofficial community patch and is not affiliated with or endorsed by Urban Games or the publishers of Transport Fever 2.
-This patch modifies original game .exe.
+* This patch modifies original game exe.
+* This is an unofficial community patch and is not affiliated with or endorsed by Urban Games or the publishers of Transport Fever 2.
