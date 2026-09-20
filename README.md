@@ -37,3 +37,4 @@ The script creates *TransportFever2.exe.bak* before modifying the original execu
 
 ## Disclaimer ##
 This is an unofficial community patch and is not affiliated with or endorsed by Urban Games or the publishers of Transport Fever 2.
+This patch modifies original game .exe.
